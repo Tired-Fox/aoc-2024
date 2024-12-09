@@ -6,7 +6,6 @@ pub fn readFile(allocator: std.mem.Allocator, path: []const u8) ![]const u8 {
     const size = (try file.stat()).size;
     const buffer = try allocator.alloc(u8, size);
 
-
     const read = try file.readAll(buffer);
     std.debug.assert(read == size);
 
@@ -15,11 +14,14 @@ pub fn readFile(allocator: std.mem.Allocator, path: []const u8) ![]const u8 {
     return std.mem.trim(u8, buffer, "\n");
 }
 
-pub fn splitLines(allocator: std.mem.Allocator, src: []const u8) !std.ArrayList([]const u8) {
-    var lines = std.ArrayList([]const u8).init(allocator);
-    var it = std.mem.split(u8, std.mem.trim(u8, src, "\r\n"), "\r\n");
+pub fn splitLines(allocator: std.mem.Allocator, src: []const u8) !std.ArrayList([]u8) {
+    var lines = std.ArrayList([]u8).init(allocator);
+    var it = std.mem.split(u8, std.mem.trim(u8, src, "\n"), "\n");
     while (it.next()) |line| {
-        try lines.append(std.mem.trim(u8, line, "\r\n"));
+        const trimmed = std.mem.trim(u8, line, "\r");
+        const buff: []u8 = try allocator.alloc(u8, trimmed.len);
+        @memcpy(buff, trimmed);
+        try lines.append(buff);
     }
     return lines;
 }

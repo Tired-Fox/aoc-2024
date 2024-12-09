@@ -11,6 +11,12 @@ const days = .{
     .{ "4-2", "days/4/part2.zig" },
     .{ "5-1", "days/5/part1.zig" },
     .{ "5-2", "days/5/part2.zig" },
+    .{ "6-1", "days/6/part1.zig" },
+    .{ "6-2", "days/6/part2.zig" },
+    .{ "7-1", "days/7/part1.zig" },
+    .{ "7-2", "days/7/part2.zig" },
+    .{ "8-1", "days/8/part1.zig" },
+    .{ "8-2", "days/8/part2.zig" },
 };
 
 pub fn build(b: *std.Build) void {
