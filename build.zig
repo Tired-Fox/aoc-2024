@@ -17,19 +17,19 @@ const days = .{
     .{ "7-2", "days/7/part2.zig" },
     .{ "8-1", "days/8/part1.zig" },
     .{ "8-2", "days/8/part2.zig" },
+    .{ "9-1", "days/9/part1.zig" },
+    .{ "9-2", "days/9/part2.zig" },
 };
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const shared = b.addModule("shared", .{
-        .root_source_file = b.path("src/root.zig")
-    });
+    const shared = b.addModule("shared", .{ .root_source_file = b.path("src/root.zig") });
 
     const day_step = b.step("day", "Run an AOC day");
 
-    inline for(days) |day| {
+    inline for (days) |day| {
         buildExample(b, day[0], day[1], .{
             .module = .{ "shared", shared },
             .dependsOn = day_step,

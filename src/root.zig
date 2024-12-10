@@ -11,7 +11,7 @@ pub fn readFile(allocator: std.mem.Allocator, path: []const u8) ![]const u8 {
 
     file.close();
 
-    return std.mem.trim(u8, buffer, "\n");
+    return std.mem.trim(u8, std.mem.trim(u8, buffer, "\n"), "\r");
 }
 
 pub fn splitLines(allocator: std.mem.Allocator, src: []const u8) !std.ArrayList([]u8) {

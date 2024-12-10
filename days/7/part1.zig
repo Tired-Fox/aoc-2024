@@ -6,9 +6,6 @@ pub fn main() !void {
     defer arena.deinit();
     const allocator = arena.allocator();
 
-    // Make a huge assumpting that each line is equal in size
-    // this is only possible because of the pre defined input.
-
     const buffer = try shared.readFile(allocator, "days/7/input.txt");
     const lines = try shared.splitLines(allocator, buffer);
     var count: usize = 0;
